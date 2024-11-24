@@ -11,7 +11,7 @@ if (!secretKey) {
   throw new Error("secretKey does not exist");
 }
 // create token
-const createToken = (user) => {
+export const createToken = (user) => {
   const accessToken = jwt.sign(
     { email: user.email, username: user.username },
     secretKey
@@ -19,7 +19,7 @@ const createToken = (user) => {
   return accessToken;
 };
 
-const validateToken = (req, res, next) => {
+export const validateToken = (req, res, next) => {
   const accessToken = req.cookies["access-token"];
   if (!accessToken) {
     return res.status(400).json({ error: "User not authenticated" });
@@ -31,6 +31,9 @@ const validateToken = (req, res, next) => {
       req.authenticated = true;
       return next();
     }
-  } catch (err) {}
+  } catch (err) {
+    return res.status(400).json({error: err})
+  }
 };
-export default createToken;
+// export default createToken;
+// export default validateToken;

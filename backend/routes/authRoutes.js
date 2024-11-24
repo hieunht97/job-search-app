@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import User from "../models/userSchema.js";
 // import { error } from "console";
 //import cookieParser from "cookie-parser"
-import createToken from "../utils/JWT.js";
+import {createToken, validateToken} from "../utils/JWT.js";
 // const app = express();
 
 const router = express.Router();
@@ -32,8 +32,9 @@ router.post("/register", async (req, res) => {
   });
 });
 
+
 router.post("/login", async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password} = req.body;
   console.log(req.body);
 
   try {
@@ -51,10 +52,13 @@ router.post("/login", async (req, res) => {
     } else {
       // create token
       const accessToken = createToken(user);
+
       // create cookie
       res.cookie("access-token", accessToken, {
         maxAge: 259200000, // cookie valid for 3 days
+        httpOnly: true
       });
+
       res
         .status(200)
         .json({ message: "Logged in successfully", token: accessToken });
@@ -63,5 +67,11 @@ router.post("/login", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
+
+
+router.get("/test", validateToken, (req, res) => {
+  res.json("profile")
+})
+
 
 export default router;
