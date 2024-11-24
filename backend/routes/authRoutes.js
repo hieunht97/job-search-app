@@ -2,12 +2,14 @@ import express from "express";
 import bcrypt from "bcrypt";
 import User from "../models/userSchema.js";
 // import { error } from "console";
-//import cookieParser from "cookie-parser"
+import cookieParser from "cookie-parser";
 import { createToken, validateToken } from "../utils/JWT.js";
 // const app = express();
 
 const router = express.Router();
 const saltRounds = 14;
+
+router.use(cookieParser());
 
 router.post("/register", async (req, res) => {
   const { email, password } = req.body;
@@ -68,7 +70,7 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/test", validateToken, (req, res) => {
-  res.json("profile");
+  res.status(200).json("profile");
 });
 
 export default router;
