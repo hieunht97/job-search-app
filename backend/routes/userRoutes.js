@@ -1,5 +1,5 @@
 import express from "express";
-
+import {createToken, validateToken} from "../utils/JWT.js";
 import User from "../models/userSchema.js";
 
 const router = express.Router();
@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id",async (req, res) => {
   console.log(req.params);
   const { id } = req.params;
 
@@ -26,12 +26,13 @@ router.get("/:id", async (req, res) => {
         message: "User not found",
       });
     }
-    console.log("---", user);
+    console.log("---\n", user);
     res.status(200).json(user);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 });
+
 
 router.post("/", async (req, res) => {
   const { email, username, password, company, linkedin, github, doc } =
