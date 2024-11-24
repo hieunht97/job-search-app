@@ -73,4 +73,11 @@ router.get("/test", validateToken, (req, res) => {
   res.json("profile");
 });
 
+
+router.get("/logout", (req, res) => {
+  res.cookie("access-token", "", {maxAge: 1})
+  console.log("logged out successfully")
+  res.redirect("/")
+})
+
 export default router;
