@@ -14,7 +14,8 @@ if (!secretKey) {
 export const createToken = (user) => {
   const accessToken = jwt.sign(
     { email: user.email, username: user.username },
-    secretKey
+    secretKey,
+    { expiresIn: "15m" }
   );
   return accessToken;
 };
@@ -26,6 +27,8 @@ export const validateToken = (req, res, next) => {
   if (!accessToken) {
     console.log("Access token not received");
     return res.status(400).json({ error: "User not authenticated" });
+  } else {
+    console.log("Access token received: ", accessToken);
   }
 
   try {

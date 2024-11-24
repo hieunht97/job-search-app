@@ -70,7 +70,7 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/test", validateToken, (req, res) => {
-  res.status(200).json("profile");
+  res.json("profile");
 });
 
 export default router;
