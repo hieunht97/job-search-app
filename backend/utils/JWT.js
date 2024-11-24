@@ -33,4 +33,5 @@ const validateToken = (req, res, next) => {
     }
   } catch (err) {}
 };
+
 export default createToken;
