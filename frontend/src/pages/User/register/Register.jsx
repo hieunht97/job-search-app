@@ -35,6 +35,7 @@ const Register = () => {
       const response = await axios.post("http://localhost:3000/auth/register", {email: email, password: pw})
       console.log("Registered successfully:")
       console.log(response.data)
+      location.replace("http://localhost:5173/login")
       
     } catch(err) {
       console.log(err)
