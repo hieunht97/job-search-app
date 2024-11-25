@@ -7,7 +7,8 @@ const Register = () => {
   const [pw, setPw] = useState("")
   const [confPw, setConfPw] = useState("")
   const [err, setErr] = useState("")
-
+  
+  // validate email format
   const validateEmail = (email) => {
     const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
     return regex.test(email);
@@ -15,6 +16,8 @@ const Register = () => {
 
   const handleClick = async (event) => {
     event.preventDefault()
+
+    // validate email and password
     if (!validateEmail(email)) {
       setErr("Invalid email")
       console.log("Invalid email")
@@ -27,6 +30,7 @@ const Register = () => {
       return
     }
 
+    // post to backend
     try {
       const response = await axios.post("http://localhost:3000/auth/register", {email: email, password: pw})
       console.log("Registered successfully:")
