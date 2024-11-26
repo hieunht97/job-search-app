@@ -1,5 +1,5 @@
 import express from "express";
-import {createToken, validateToken} from "../utils/JWT.js";
+import { createToken, validateToken } from "../utils/JWT.js";
 import User from "../models/userSchema.js";
 
 const router = express.Router();
@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id",async (req, res) => {
+router.get("/:id", async (req, res) => {
   console.log(req.params);
   const { id } = req.params;
 
@@ -32,7 +32,6 @@ router.get("/:id",async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
-
 
 router.post("/", async (req, res) => {
   const { email, username, password, company, linkedin, github, doc } =
@@ -52,7 +51,5 @@ router.post("/", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
-
-
 
 export default router;
