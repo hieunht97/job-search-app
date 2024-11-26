@@ -1,10 +1,8 @@
 import express from "express";
 import bcrypt from "bcrypt";
 import User from "../models/userSchema.js";
-// import { error } from "console";
 import cookieParser from "cookie-parser";
 import { createToken, validateToken } from "../utils/JWT.js";
-// const app = express();
 
 const router = express.Router();
 const saltRounds = 14;
@@ -69,15 +67,10 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.get("/test", validateToken, (req, res) => {
-  res.json("profile");
-});
-
-
 router.get("/logout", (req, res) => {
-  res.cookie("access-token", "", {maxAge: 1})
-  console.log("logged out successfully")
-  res.redirect("/")
-})
+  res.cookie("access-token", "", { maxAge: 1 });
+  console.log("logged out successfully");
+  res.redirect("/");
+});
 
 export default router;

@@ -65,15 +65,31 @@ body {
   position: absolute;
   border-radius: 50%;
 }
+.background .triangle {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  background: linear-gradient(to bottom right, #32a852, #98fb98);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+.background .square {
+  height: 200px;
+  width: 200px;
+  position: absolute;
+}
 .shape:first-child {
   background: linear-gradient(#1845ad, #23a2f6);
   left: -80px;
   top: -80px;
 }
-.shape:last-child {
+.square:last-child {
   background: linear-gradient(to right, #ff512f, #f09819);
-  right: -30px;
-  bottom: -80px;
+  left: -30px;
+  bottom: -30px;
+}
+.triangle:nth-child(2) {
+  right: -40px;
+  top: -60px;
 }
 form {
   height: 520px;
@@ -142,7 +158,7 @@ button {
   background: red;
   width: 150px;
   border-radius: 3px;
-  padding: 5px 10px 10px 5px;
+  padding: 10px 5px;
   background-color: rgba(255, 255, 255, 0.27);
   color: #eaf0fb;
   text-align: center;
@@ -155,4 +171,17 @@ button {
 }
 .social i {
   margin-right: 4px;
+}
+
+.errmsg {
+  background-color: lightpink;
+  color: firebrick;
+  font-weight: bold;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.offscreen {
+  position: absolute;
+  left: -9999px;
 }
