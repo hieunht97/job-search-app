@@ -91,6 +91,12 @@ body {
   right: -40px;
   top: -60px;
 }
+.shape:last-child {
+  background: linear-gradient(to right, #ff512f, #f09819);
+  right: -40px;
+  bottom: -80px;
+}
+
 form {
   height: 520px;
   width: 400px;
@@ -104,6 +110,10 @@ form {
   border: 2px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
   padding: 50px 35px;
+}
+form.register {
+  height: 620px;
+  width: 400px;
 }
 form * {
   font-family: "Poppins", sans-serif;
@@ -150,9 +160,14 @@ button {
   border-radius: 5px;
   cursor: pointer;
 }
+button.register {
+  margin-top: 40px;
+}
 .social {
   margin-top: 30px;
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .social div {
   background: red;
@@ -163,6 +178,11 @@ button {
   color: #eaf0fb;
   text-align: center;
 }
+.social div.login {
+  width: 100%;
+  border-radius: 5px;
+  padding: 15px 5px;
+}
 .social div:hover {
   background-color: rgba(255, 255, 255, 0.47);
 }
@@ -171,6 +191,12 @@ button {
 }
 .social i {
   margin-right: 4px;
+}
+.social a {
+  text-decoration: none;
+  width: 100%;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .errmsg {
