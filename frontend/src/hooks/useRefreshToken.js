@@ -35,7 +35,6 @@ const useRefreshToken = () => {
       console.log("Attempting token refresh...");
       const response = await axios.get("/refresh", {
         withCredentials: true,
-        credentials: "include",
       });
       setAuth((prev) => {
         console.log("Previous Auth State:", prev);

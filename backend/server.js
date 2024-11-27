@@ -18,20 +18,32 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(
   cors({
-    origin: ["http://localhost:5173", "http://127.0.0.1:5173"],
+    origin: "http://localhost:5173",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE", // Allowed HTTP methods
     credentials: true, // Allow cookies
   })
 );
-app.use((req, res, next) => {
-  console.log("Request Origin:", req.headers.origin);
-  next();
-});
 
 // Routes
 app.use("/user", User);
 app.use("/auth", Auth);
 app.use("/refresh", RefreshToken);
+
+// Test Routes
+app.post("/set-cookie", (req, res) => {
+  res.cookie("test-cookie", "test-value", {
+    maxAge: 3600000, // 1 hour
+    httpOnly: true,
+    sameSite: "None",
+    secure: false,
+  });
+  res.send("Cookie set");
+});
+
+app.get("/read-cookie", (req, res) => {
+  console.log("Cookies received:", req.cookies);
+  res.json(req.cookies);
+});
 
 // Base Route
 app.get("/", (req, res) => {

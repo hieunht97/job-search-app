@@ -63,11 +63,11 @@ router.post("/login", async (req, res) => {
       res.cookie("refresh-token", refreshToken, {
         maxAge: 259200000, // cookie valid for 3 days
         httpOnly: true,
-        sameSite: "None",
         secure: false,
       });
 
       console.log("Set-Cookie: refresh-token:", refreshToken);
+      console.log("Set-Cookie Header:", res.getHeaders()["set-cookie"]);
 
       res.status(200).json({ message: "Logged in successfully", accessToken });
     }

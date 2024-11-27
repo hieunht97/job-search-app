@@ -8,9 +8,9 @@ const router = express.Router();
 
 router.get("/", (req, res) => {
   const cookies = req.cookies;
-  console.log("Request Headers:", req.headers);
-  console.log("Request Cookies:", req.cookies);
-  console.log("Cookies in /refresh route:", cookies);
+  console.log("Cookies:", cookies);
+  console.log("Headers:", req.headers);
+  console.log("Origin:", req.headers.origin);
 
   // Check if refresh token is present in cookies
   if (!cookies || !cookies["refresh-token"]) {
