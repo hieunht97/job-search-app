@@ -2,7 +2,11 @@ import express from "express";
 import bcrypt from "bcrypt";
 import User from "../models/userSchema.js";
 import cookieParser from "cookie-parser";
-import { createToken, validateToken } from "../utils/JWT.js";
+import {
+  createRefreshToken,
+  createToken,
+  validateToken,
+} from "../utils/JWT.js";
 
 const router = express.Router();
 const saltRounds = 14;
@@ -49,18 +53,23 @@ router.post("/login", async (req, res) => {
     if (!isPasswordValid) {
       res.status(404).json({ error: "Invalid email or password" });
     } else {
-      // create token
+      // create access token
       const accessToken = createToken(user);
 
+      // create refresh token
+      const refreshToken = createRefreshToken(user);
+
       // create cookie
-      res.cookie("access-token", accessToken, {
+      res.cookie("refresh-token", refreshToken, {
         maxAge: 259200000, // cookie valid for 3 days
         httpOnly: true,
+        sameSite: "None",
+        secure: false,
       });
 
-      res
-        .status(200)
-        .json({ message: "Logged in successfully", token: accessToken });
+      console.log("Set-Cookie: refresh-token:", refreshToken);
+
+      res.status(200).json({ message: "Logged in successfully", accessToken });
     }
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -68,7 +77,7 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/logout", (req, res) => {
-  res.cookie("access-token", "", { maxAge: 1 });
+  res.cookie("refresh-token", "", { maxAge: 1 });
   console.log("logged out successfully");
   res.redirect("/");
 });
