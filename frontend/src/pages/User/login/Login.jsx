@@ -31,12 +31,12 @@ const Login = () => {
           {
             headers: {
               "Content-Type": "application/json",
-              withCredentials: true,
             },
+            withCredentials: true,
           }
         );
         console.log(JSON.stringify(response?.data));
-        const accessToken = response.data.token;
+        const accessToken = response.data.accessToken;
         console.log(accessToken);
         setAuth({ email, password, accessToken });
         setEmail("");

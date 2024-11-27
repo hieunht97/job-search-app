@@ -1,16 +1,17 @@
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import validator from "validator";
-// import { UserType } from "../models/userSchema.js";
-// import { Request, Response, NextFunction } from "express";
 
 dotenv.config();
-const secretKey = process.env.JWTSECRETKEY;
 
-if (!secretKey) {
-  throw new Error("secretKey does not exist");
+const secretKey = process.env.JWTSECRETKEY;
+const refreshSecretKey = process.env.REFRESH_TOKEN_SECRET;
+
+if (!secretKey || !refreshSecretKey) {
+  throw new Error("secretKey/refreshSecretKey does not exist");
 }
-// create token
+
+// create access token
 export const createToken = (user) => {
   const accessToken = jwt.sign(
     { email: user.email, username: user.username },
@@ -20,6 +21,17 @@ export const createToken = (user) => {
   return accessToken;
 };
 
+// create refresh token
+export const createRefreshToken = (user) => {
+  const refreshToken = jwt.sign(
+    { email: user.email, username: user.username },
+    refreshSecretKey,
+    { expiresIn: "1d" }
+  );
+  return refreshToken;
+};
+
+// unused function
 export const validateToken = (req, res, next) => {
   const accessToken = req.cookies["access-token"];
   console.log("Access token received: ", accessToken);
@@ -42,5 +54,3 @@ export const validateToken = (req, res, next) => {
     return res.status(400).json({ error: err });
   }
 };
-// export default createToken;
-// export default validateToken;

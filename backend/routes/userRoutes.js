@@ -1,5 +1,5 @@
 import express from "express";
-import { createToken, validateToken } from "../utils/JWT.js";
+// import { createToken, validateToken } from "../utils/JWT.js";
 import User from "../models/userSchema.js";
 
 const router = express.Router();
